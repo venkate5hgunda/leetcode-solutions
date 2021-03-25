@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x<0) return false;
+        else if(x<10) return true;
+        string xStr = to_string(x);
+        int left=0,right=xStr.size();
+        while(left<=right) {
+            if(xStr[left]!=xStr[right-1]) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+};
