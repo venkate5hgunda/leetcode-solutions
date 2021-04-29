@@ -8,6 +8,8 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+// IMPLEMENTATION #1
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
@@ -34,5 +36,36 @@ public:
             }
         }
         return minNode;
+    }
+};
+
+
+// IMPLEMENTATION #2
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode* temp;
+        if(lists.size()==0) return temp;
+        while(lists.size()>1) {
+            temp=mergeTwoLists(lists[0],lists[1]);
+            lists.push_back(temp);
+            lists.erase(lists.begin());
+            lists.erase(lists.begin());
+        }
+        return lists[0];
+    }
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* list;
+        if(l1==nullptr) return l2;
+        if(l2==nullptr) return l1;
+        if(l1->val>l2->val) {
+            list=l2;
+            list->next=mergeTwoLists(l1,l2->next);
+        }
+        else {
+            list=l1;
+            list->next=mergeTwoLists(l1->next,l2);
+        }
+        return list;
     }
 };
